@@ -44,23 +44,33 @@ export default function Home() {
         </div>
       </nav>
 
+      {/* Pricing anchor banner */}
+      <div className="bg-blue-600/10 border-b border-blue-500/20 px-6 py-3 text-center">
+        <p className="text-sm text-blue-300">
+          FiscalNote and POLITICO Pro charge{" "}
+          <span className="font-semibold text-white">$15,000+/year</span>.{" "}
+          Goffer AI starts at{" "}
+          <span className="font-semibold text-white">$29/month</span>.
+        </p>
+      </div>
+
       {/* Hero */}
       <section className="max-w-5xl mx-auto px-6 py-24 text-center">
         <div className="inline-block mb-6 px-4 py-1.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 uppercase tracking-widest">
           Built for Policy Professionals
         </div>
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-6 tracking-tight">
-          Congressional intelligence,
+          Turn 4 hours of legislative
           <br />
-          <span className="text-blue-400">your documents</span>,{" "}
+          research into a{" "}
           <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-            one conversation.
+            4-minute conversation.
           </span>
         </h1>
         <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10">
-          Goffer AI is the AI assistant for policy researchers and government affairs
-          professionals — giving you instant access to legislative intelligence, bill
-          analysis, and your own documents in a single, secure chat.
+          Goffer AI gives government affairs professionals instant access to
+          congressional intelligence and their own documents in one secure chat —
+          no enterprise contract required.
         </p>
 
         {/* Email Capture */}
@@ -87,7 +97,7 @@ export default function Home() {
                 disabled={loading}
                 className="rounded-lg bg-blue-600 hover:bg-blue-500 disabled:opacity-60 px-6 py-3 font-semibold text-white transition-colors whitespace-nowrap"
               >
-                {loading ? "Joining..." : "Join Waitlist"}
+                {loading ? "Requesting..." : "Get Early Access"}
               </button>
             </form>
           )}
@@ -152,7 +162,7 @@ export default function Home() {
             Built for teams at
           </p>
           <div className="flex flex-wrap justify-center gap-8 text-gray-500 font-semibold">
-            {["Think Tanks", "Lobbying Firms", "Congressional Offices", "State Agencies", "Law Firms"].map(
+            {["Think Tanks", "Lobbying Firms", "Congressional Offices", "Trade Associations", "Law Firms"].map(
               (org) => (
                 <span key={org} className="text-sm">
                   {org}
@@ -170,8 +180,8 @@ export default function Home() {
             Be among the first to access Goffer AI
           </h2>
           <p className="text-gray-400 mb-8">
-            We&apos;re onboarding a limited cohort of policy professionals. Secure your
-            spot on the waitlist today.
+            We&apos;re onboarding a limited cohort of government affairs professionals.
+            Secure your spot today — no enterprise contract, no $15K commitment.
           </p>
           {submitted ? (
             <div className="rounded-xl bg-blue-500/10 border border-blue-500/30 px-6 py-5 text-center inline-block">
@@ -192,7 +202,7 @@ export default function Home() {
                 disabled={loading}
                 className="rounded-lg bg-blue-600 hover:bg-blue-500 disabled:opacity-60 px-6 py-3 font-semibold text-white transition-colors whitespace-nowrap"
               >
-                {loading ? "Joining..." : "Join Waitlist"}
+                {loading ? "Requesting..." : "Get Early Access"}
               </button>
             </form>
           )}
@@ -235,7 +245,7 @@ const features = [
   {
     icon: "📄",
     title: "Document Chat",
-    body: "Upload your own memos, filings, and reports. Goffer AI reads them alongside public data so context is never lost.",
+    body: "Ask a question — and get an answer that cites both the bill text and your own internal analysis. No other tool does that.",
   },
   {
     icon: "💬",
