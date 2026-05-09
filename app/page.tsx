@@ -1,12 +1,49 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
-export default function Home() {
+type UtmData = {
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+};
+
+const SOURCE_LABELS: Record<string, string> = {
+  reddit: "👾 Seen on Reddit",
+  twitter: "🐦 Seen on Twitter / X",
+  indie_hackers: "🛠️ Seen on Indie Hackers",
+};
+
+function SourceBadge({ source }: { source: string | null }) {
+  if (!source) return null;
+  const label = SOURCE_LABELS[source] ?? `From ${source}`;
+  return (
+    <div className="flex justify-center mb-6">
+      <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20">
+        {label}
+      </span>
+    </div>
+  );
+}
+
+function HomeContent() {
+  const params = useSearchParams();
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const utmRef = useRef<UtmData>({});
+
+  useEffect(() => {
+    utmRef.current = {
+      utm_source: params.get("utm_source") ?? undefined,
+      utm_medium: params.get("utm_medium") ?? undefined,
+      utm_campaign: params.get("utm_campaign") ?? undefined,
+    };
+  }, [params]);
+
+  const utmSource = params.get("utm_source");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,7 +54,7 @@ export default function Home() {
       const res = await fetch("https://formspree.io/f/xqapnjab", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, ...utmRef.current }),
       });
 
       if (res.ok) {
@@ -56,6 +93,7 @@ export default function Home() {
 
       {/* Hero */}
       <section className="max-w-5xl mx-auto px-6 py-24 text-center">
+        <SourceBadge source={utmSource} />
         <div className="inline-block mb-6 px-4 py-1.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 uppercase tracking-widest">
           Built for Policy Professionals
         </div>
@@ -215,6 +253,14 @@ export default function Home() {
         <p className="mt-1">— The Goffer AI team</p>
       </footer>
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense>
+      <HomeContent />
+    </Suspense>
   );
 }
 
